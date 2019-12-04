@@ -1,6 +1,7 @@
 package pe.dquispe.myappfinal.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pe.dquispe.myappfinal.R;
+import pe.dquispe.myappfinal.activities.DetalleMascotaActivity;
 import pe.dquispe.myappfinal.models.Mascota;
 import pe.dquispe.myappfinal.services.ApiService;
 
@@ -61,7 +63,7 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         final Context context = viewHolder.itemView.getContext();
 
-        Mascota mascota = this.mascotas.get(position);
+        final Mascota mascota = this.mascotas.get(position);
 
         viewHolder.nombreText.setText(mascota.getNombre());
         viewHolder.razaText.setText(mascota.getRaza());
@@ -70,6 +72,15 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.ViewHold
         String url = ApiService.API_BASE_URL + "/mascotas/images/" + mascota.getImagen();
         Picasso.with(context).load(url).into(viewHolder.fotoImage);
 
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetalleMascotaActivity.class);
+                intent.putExtra("ID", mascota.getId());
+                context.startActivity(intent);
+
+            }
+        });
     }
 
     @Override

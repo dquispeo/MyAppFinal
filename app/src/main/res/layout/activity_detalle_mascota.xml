@@ -25,7 +25,7 @@
                 android:adjustViewBounds="true"
                 tools:src="@mipmap/ic_launcher" />
             <TextView
-                android:id="@+id/nombre_text"
+                android:id="@+id/txt_detalle_mascota_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/foto_image"
@@ -36,7 +36,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/nombre_text"
+                android:layout_below="@+id/txt_detalle_mascota_nombre"
                 android:orientation="vertical">
                 <RelativeLayout
                     android:layout_width="match_parent"

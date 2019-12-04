@@ -1,11 +1,23 @@
 package pe.dquispe.myappfinal.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Usuario {
     private Long id;
     private String nombre, correo, password;
+    private List<Mascota> mascota=new ArrayList<>();
 
     public Usuario() {
 
+    }
+
+    public List<Mascota> getMascota() {
+        return mascota;
+    }
+
+    public void setMascota(List<Mascota> mascota) {
+        this.mascota = mascota;
     }
 
     public Long getId() {
@@ -47,6 +59,7 @@ public class Usuario {
                 ", nombre='" + nombre + '\'' +
                 ", correo='" + correo + '\'' +
                 ", password='" + password + '\'' +
+                ", mascota=" + mascota +
                 '}';
     }
 }
