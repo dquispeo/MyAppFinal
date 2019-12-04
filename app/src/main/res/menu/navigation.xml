@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group_nav_system"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="Ajustes" />
+        <item
+            android:id="@+id/nav_datos"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="Mi perfil" />
+    </group>
+    <group
+        android:id="@+id/group_nav_system2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_acerca_de"
+            android:icon="@android:drawable/ic_menu_help"
+            android:title="Acerca De" />
+        <item
+            android:id="@+id/nav_maps"
+            android:icon="@android:drawable/ic_dialog_map"
+            android:title="Mapa" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@android:drawable/ic_lock_power_off"
+            android:title="Cerrar Sesión" />
+    </group>
+</menu>

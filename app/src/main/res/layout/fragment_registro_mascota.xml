@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+    <EditText
+        android:id="@+id/edit_mascota_nombre_reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese nombre de tu mascota"
+        android:layout_margin="16dp"/>
+    <EditText
+        android:id="@+id/edit_mascota_raza_reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_mascota_nombre_reg"
+        android:layout_margin="16dp"
+        android:hint="Ingrese la Raza de tu amscota"/>
+    <EditText
+        android:id="@+id/edit_mascota_edad_reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_mascota_raza_reg"
+        android:layout_margin="16dp"
+        android:hint="Ingrese la edad de tu mascota"/>
+    <RelativeLayout
+        android:id="@+id/relative_foto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_below="@+id/edit_mascota_edad_reg">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@android:drawable/ic_menu_camera"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:text="Tomar Foto"
+            android:onClick="takePicture"/>
+        <ImageView
+            android:id="@+id/imagen_preview"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:layout_alignParentEnd="true"
+            android:src="@mipmap/ic_launcher"/>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_registrar_mascota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrar mascota"
+        android:layout_below="@+id/relative_foto"
+        android:layout_margin="16dp"/>
+</RelativeLayout>
