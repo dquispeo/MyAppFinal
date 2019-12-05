@@ -1,7 +1,9 @@
 package pe.dquispe.myappfinal.fragment;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -19,6 +21,7 @@ import java.util.List;
 import pe.dquispe.myappfinal.R;
 import pe.dquispe.myappfinal.adapter.MascotaAdapter;
 import pe.dquispe.myappfinal.models.Mascota;
+import pe.dquispe.myappfinal.models.Usuario;
 import pe.dquispe.myappfinal.services.ApiService;
 import pe.dquispe.myappfinal.services.ApiServiceGenerator;
 import retrofit2.Call;
@@ -32,7 +35,7 @@ public class ListaFragment extends Fragment {
     private static final String TAG = ListaFragment.class.getSimpleName();
     private RecyclerView mascotasList;
     public SwipeRefreshLayout swipeRefreshLayout;
-
+    private Long usuid;
 
     public ListaFragment() {
         // Required empty public constructor
@@ -67,6 +70,11 @@ public class ListaFragment extends Fragment {
             }
         });
 
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        usuid = sp.getLong("usuid", 0L);
+        //usuid = getActivity().getIntent().getExtras().getLong("ID");
+        Log.e(TAG, "usuid:" + usuid);
+
         initialize();
 
 
@@ -78,20 +86,22 @@ public class ListaFragment extends Fragment {
 
         ApiService service = ApiServiceGenerator.createService(ApiService.class);
 
-        service.getMascota().enqueue(new Callback<List<Mascota>>() {
+        Call<Usuario> call=service.showUsuario(this.usuid);
+
+        call.enqueue(new Callback<Usuario>() {
 
             @Override
-            public void onResponse(@NonNull Call<List<Mascota>> call, @NonNull Response<List<Mascota>> response) {
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 try {
-
                     if (response.isSuccessful()) {
-
-                        List<Mascota> mascotas = response.body();
-                        Log.d(TAG, "productos: " + mascotas);
+                        Usuario usuario=response.body();
+                        Log.d(TAG, "usuarioooooo: " + usuario);
+                        Log.d(TAG, "usuario getNegocio: " + usuario.getMascota());
 
                         MascotaAdapter adapter = (MascotaAdapter) mascotasList.getAdapter();
-                        adapter.setMascotas(mascotas);
+                        adapter.setMascotas(usuario.getMascota());
                         adapter.notifyDataSetChanged();
+
 
                     } else {
                         throw new Exception(ApiServiceGenerator.parseError(response).getMessage());
@@ -101,12 +111,12 @@ public class ListaFragment extends Fragment {
                     Log.e(TAG, "onThrowable: " + t.getMessage(), t);
                     Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 }finally {
-                    swipeRefreshLayout.setRefreshing(true);
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<Mascota>> call, @NonNull Throwable t) {
+            public void onFailure(Call<Usuario> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.getMessage(), t);
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 swipeRefreshLayout.setRefreshing(false);

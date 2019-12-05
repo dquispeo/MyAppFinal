@@ -67,9 +67,9 @@ public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.ViewHold
 
         viewHolder.nombreText.setText(mascota.getNombre());
         viewHolder.razaText.setText(mascota.getRaza());
-        viewHolder.edadText.setText(mascota.getEdad());
+        viewHolder.edadText.setText(String.valueOf(mascota.getEdad()));
 
-        String url = ApiService.API_BASE_URL + "/mascotas/images/" + mascota.getImagen();
+        String url = ApiService.API_BASE_URL + "/api/mascotas/images/" + mascota.getImagen();
         Picasso.with(context).load(url).into(viewHolder.fotoImage);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

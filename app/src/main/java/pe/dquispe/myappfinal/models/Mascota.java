@@ -4,20 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mascota {
-    private Long id;
+    private Long id,usuario_id;
     private  String nombre,raza,imagen;
     private Integer edad;
-
-    private List<Usuario> usuario_id=new ArrayList<>();
 
     public Mascota() {
     }
 
-    public List<Usuario> getUsuario_id() {
+    public Long getUsuario_id() {
         return usuario_id;
     }
 
-    public void setUsuario_id(List<Usuario> usuario_id) {
+    public void setUsuario_id(Long usuario_id) {
         this.usuario_id = usuario_id;
     }
 

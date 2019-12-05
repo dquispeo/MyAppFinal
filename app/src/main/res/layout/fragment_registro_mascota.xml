@@ -32,12 +32,12 @@
         android:layout_marginBottom="16dp"
         android:layout_below="@+id/edit_mascota_edad_reg">
         <Button
+            android:id="@+id/btn_takePicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableStart="@android:drawable/ic_menu_camera"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:text="Tomar Foto"
-            android:onClick="takePicture"/>
+            android:text="Tomar Foto"/>
         <ImageView
             android:id="@+id/imagen_preview"
             android:layout_width="50dp"

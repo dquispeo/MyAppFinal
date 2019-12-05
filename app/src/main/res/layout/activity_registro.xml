@@ -7,30 +7,32 @@
     tools:context=".activities.RegistroActivity"
     android:padding="16dp">
     <EditText
-        android:id="@+id/edit_nombre"
+        android:id="@+id/edit_usu_nombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ingrese email"
         android:layout_margin="16dp"/>
     <EditText
-        android:id="@+id/edit_email"
+        android:id="@+id/edit_usu_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edit_nombre"
+        android:layout_below="@+id/edit_usu_nombre"
         android:layout_margin="16dp"
         android:hint="Ingrese Contraseña"/>
     <EditText
-        android:id="@+id/edit_password"
+        android:id="@+id/edit_usu_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edit_email"
+        android:layout_below="@+id/edit_usu_email"
         android:layout_margin="16dp"
         android:hint="Ingrese Contraseña"/>
+
     <Button
-        android:id="@+id/btn_ingresar"
+        android:id="@+id/btn_usu_registro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ingresar"
-        android:layout_below="@+id/edit_password"
-        android:layout_margin="16dp"/>
+        android:layout_below="@+id/edit_usu_password"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="Registrar" />
 </RelativeLayout>

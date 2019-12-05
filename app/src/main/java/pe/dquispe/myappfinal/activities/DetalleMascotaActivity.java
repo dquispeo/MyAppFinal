@@ -59,13 +59,13 @@ public class DetalleMascotaActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
 
                         Mascota mascota = response.body();
-                        Log.d(TAG, "producto: " + mascota);
+                        Log.d(TAG, "mascotas : " + mascota);
 
                         nombreText.setText(mascota.getNombre());
                         razaText.setText(mascota.getRaza());
-                        edadText.setText(mascota.getEdad());
+                        edadText.setText(String.valueOf(mascota.getEdad()));
 
-                        String url = ApiService.API_BASE_URL + "/productos/images/" + mascota.getImagen();
+                        String url = ApiService.API_BASE_URL + "/api/mascotas/images/" + mascota.getImagen();
                         Picasso.with(DetalleMascotaActivity.this).load(url).into(fotoImage);
 
                     } else {
