@@ -16,7 +16,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface ApiService {
-    String API_BASE_URL = "http://192.168.1.12:8080"; //http://10.0.2.2:8080
+    String API_BASE_URL = "http://192.168.101.49:8080"; //http://10.0.2.2:8080
 
     @GET("/api/mascotas")
     Call<List<Mascota>> getMascota();
@@ -41,10 +41,17 @@ public interface ApiService {
     @GET("/api/mascotas/{id}")
     Call<Mascota> showMascota(@Path("id") Long id);
 
+    //http://192.168.101.49:8080/api/mascotas
+    @GET("/api/mascotas/{id}")
+    Call<Mascota> showMascotaQR(@Path("id") Long id);
+
     @FormUrlEncoded
     @POST("/auth/login")
     Call<Usuario> login(@Field("correo") String correo,
                         @Field("password") String password);
+
+    @GET("/api/usuarios")
+    Call<List<Usuario>> getUsuarios();
 
     @GET("/api/usuarios/{id}")
     Call<Usuario> showUsuario(@Path("id") Long id);

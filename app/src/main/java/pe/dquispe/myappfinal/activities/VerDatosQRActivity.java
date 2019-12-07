@@ -1,8 +1,6 @@
 package pe.dquispe.myappfinal.activities;
 
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.preference.PreferenceManager;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,14 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import pe.dquispe.myappfinal.R;
 import pe.dquispe.myappfinal.models.Mascota;
@@ -29,42 +24,48 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetalleMascotaActivity extends AppCompatActivity {
+public class VerDatosQRActivity extends AppCompatActivity {
 
     private static final String TAG = DetalleMascotaActivity.class.getSimpleName();
-    private Long id;
+    private Long rutaid;
     private ImageView fotoImage;
     private TextView nombreText;
     private TextView razaText;
     private TextView edadText,dueñoText,correoText;
     String dueño,correo,idUsu;
-    private ImageView CodeImageViewQR;
     Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalle_mascota);
+        setContentView(R.layout.activity_ver_datos_qr);
 
-        fotoImage = findViewById(R.id.foto_image);
-        nombreText = findViewById(R.id.txt_detalle_mascota_nombre);
-        razaText = findViewById(R.id.txt_detalle_mascota_raza);
-        edadText = findViewById(R.id.txt_detalle_mascota_edad);
-        dueñoText = findViewById(R.id.txt_detalle_mascota_dueño);
-        correoText = findViewById(R.id.txt_detalle_mascota_correo);
-        CodeImageViewQR = findViewById(R.id.qrCodeImageView);
+        fotoImage = findViewById(R.id.foto_verqr_image);
+        nombreText = findViewById(R.id.txt_verqr_mascota_nombre);
+        razaText = findViewById(R.id.txt_verqr_mascota_raza);
+        edadText = findViewById(R.id.txt_verqr_mascota_edad);
+        dueñoText = findViewById(R.id.txt_verqr_mascota_dueño);
+        correoText = findViewById(R.id.txt_verqr_mascota_correo);
 
-        id = getIntent().getExtras().getLong("ID");
-        Log.e(TAG, "id:" + id);
+
+        Bundle bundle=getIntent().getExtras();
+        String rutaidString=bundle.getString("dato","");
+
+        try {
+            rutaid = new Long(Long.parseLong(rutaidString));
+        } catch (Exception e) {
+            Toast.makeText(VerDatosQRActivity.this, "Error\n:No existe esa mascota.\nNo coincide con el código QR.", Toast.LENGTH_LONG).show();
+        }
+
+
+        Log.d(TAG, "LOG__rutaid : " + rutaid);
 
         initialize();
-
     }
-
     private void initialize() {
 
         ApiService service = ApiServiceGenerator.createService(ApiService.class);
-        Call<Mascota> call = service.showMascota(id);
+        Call<Mascota> call = service.showMascotaQR(rutaid);
         call.enqueue(new Callback<Mascota>() {
             String dueñoUsu,correoUsu;
             @Override
@@ -93,13 +94,13 @@ public class DetalleMascotaActivity extends AppCompatActivity {
                                     }
                                 } catch (Throwable t) {
                                     Log.e(TAG, "onThrowable: " + t.getMessage(), t);
-                                    Toast.makeText(DetalleMascotaActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(VerDatosQRActivity.this, "onThrowable "+t.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             }
                             @Override
                             public void onFailure(Call<Usuario> call, Throwable t) {
                                 Log.e(TAG, "onFailure: " + t.getMessage(), t);
-                                Toast.makeText(DetalleMascotaActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(VerDatosQRActivity.this, "onFailure "+t.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         });
 
@@ -107,11 +108,7 @@ public class DetalleMascotaActivity extends AppCompatActivity {
                         razaText.setText(mascota.getRaza());
                         edadText.setText(String.valueOf(mascota.getEdad()));
                         String url = ApiService.API_BASE_URL + "/api/mascotas/images/" + mascota.getImagen();
-                        Picasso.with(DetalleMascotaActivity.this).load(url).into(fotoImage);
-
-                        ///////////////
-                        generarQR();
-                        ///////////////
+                        Picasso.with(VerDatosQRActivity.this).load(url).into(fotoImage);
 
                     } else {
                         throw new Exception(ApiServiceGenerator.parseError(response).getMessage());
@@ -119,37 +116,20 @@ public class DetalleMascotaActivity extends AppCompatActivity {
 
                 } catch (Throwable t) {
                     Log.e(TAG, "onThrowable: " + t.getMessage(), t);
-                    Toast.makeText(DetalleMascotaActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(VerDatosQRActivity.this, "No existe esa mascota.\nNo coincide con el código QR.\nError: "+t.getMessage(), Toast.LENGTH_LONG).show();
+                    Intent intent=new Intent(VerDatosQRActivity.this, HomeActivity.class);
+                    startActivity(intent);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Mascota> call, @NonNull Throwable t) {
                 Log.e(TAG, "onFailure: " + t.getMessage(), t);
-                Toast.makeText(DetalleMascotaActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(VerDatosQRActivity.this, "No existe esa mascota.\nNo coincide con el código QR.\nError: "+t.getMessage(), Toast.LENGTH_LONG).show();
+                Intent intent=new Intent(VerDatosQRActivity.this, HomeActivity.class);
+                startActivity(intent);
             }
 
         });
     }
-
-    ///////////////
-    private void generarQR(){
-        String nombreTextqr=nombreText.getText().toString();
-        String razaTextqr=razaText.getText().toString();
-        String edadTextqr=edadText.getText().toString();
-        String dueñoTextqr=dueñoText.getText().toString();
-        String correoTextqr=correoText.getText().toString();
-
-        MultiFormatWriter multiFormatWriter=new MultiFormatWriter();
-        try {
-            BitMatrix bitMatrix=multiFormatWriter.encode(String.valueOf(id), BarcodeFormat.QR_CODE,1000,1000);
-            BarcodeEncoder barcodeEncoder=new BarcodeEncoder();
-            Bitmap bitmap=barcodeEncoder.createBitmap(bitMatrix);
-            CodeImageViewQR.setImageBitmap(bitmap);
-        }catch (WriterException e){
-            e.printStackTrace();
-        }
-    }
-    ///////////////
-
 }

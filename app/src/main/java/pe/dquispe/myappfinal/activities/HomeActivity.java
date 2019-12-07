@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import pe.dquispe.myappfinal.R;
 import pe.dquispe.myappfinal.fragment.ListaFragment;
+import pe.dquispe.myappfinal.fragment.ListaTodasFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -51,9 +52,17 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 // Do action by menu item id
                 switch (menuItem.getItemId()){
+                    case R.id.nav_todos:
+                        showTodasMascotas();
+                        Toast.makeText(HomeActivity.this, "Todas las mascotas", Toast.LENGTH_SHORT).show();
+                        break;
                     case R.id.nav_datos:
                         showMascotas();
                         Toast.makeText(HomeActivity.this, "Mis mascotas", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.nav_qr:
+                        escanearMascotas();
+                        Toast.makeText(HomeActivity.this, "Escanear QR", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_logout:
                         logout();
@@ -67,7 +76,7 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             }
         });
-        showMascotas();
+        showTodasMascotas();
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this);
         usuid = sp.getLong("usuid", 0L);
@@ -95,10 +104,20 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    ///////// Fragment Inicio ///////////
+    ///////// Todas las Mascotas ///////////
+    private void showTodasMascotas(){
+        Fragment fragment = new ListaTodasFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragment).addToBackStack("tag").commit();
+    }
+    ///////// Mis Mascotas ///////////
     private void showMascotas(){
         Fragment fragment = new ListaFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragment).addToBackStack("tag").commit();
+    }
+    ///////// QR ///////////
+    private void escanearMascotas(){
+        Intent intent=new Intent(HomeActivity.this, LeerQRActivity.class);
+        startActivity(intent);
     }
     /////// Cerrar Sesión//////////
     private void logout(){

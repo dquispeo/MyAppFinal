@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/foto_image"
+                android:id="@+id/foto_verqr_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -26,10 +26,10 @@
                 android:adjustViewBounds="true"
                 tools:src="@mipmap/ic_launcher" />
             <TextView
-                android:id="@+id/txt_detalle_mascota_nombre"
+                android:id="@+id/txt_verqr_mascota_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/foto_image"
+                android:layout_below="@+id/foto_verqr_image"
                 android:textSize="25sp"
                 android:padding="16dp"
                 android:textStyle="bold"
@@ -37,8 +37,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_detalle_mascota_nombre"
-                android:orientation="vertical">
+                android:layout_below="@+id/txt_verqr_mascota_nombre"
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -51,7 +52,7 @@
                         android:textStyle="bold"
                         android:textSize="18sp"/>
                     <TextView
-                        android:id="@+id/txt_detalle_mascota_raza"
+                        android:id="@+id/txt_verqr_mascota_raza"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/input_det_raza"
@@ -71,7 +72,7 @@
                         android:textStyle="bold"
                         android:textSize="18sp"/>
                     <TextView
-                        android:id="@+id/txt_detalle_mascota_edad"
+                        android:id="@+id/txt_verqr_mascota_edad"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/input_det_edad"
@@ -85,7 +86,7 @@
                         android:text="años"
                         android:textSize="18sp"
                         android:layout_marginStart="10dp"
-                        android:layout_toEndOf="@+id/txt_detalle_mascota_edad"/>
+                        android:layout_toEndOf="@+id/txt_verqr_mascota_edad"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -99,7 +100,7 @@
                         android:textStyle="bold"
                         android:textSize="18sp"/>
                     <TextView
-                        android:id="@+id/txt_detalle_mascota_dueño"
+                        android:id="@+id/txt_verqr_mascota_dueño"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/input_det_dueño"
@@ -119,7 +120,7 @@
                         android:textStyle="bold"
                         android:textSize="18sp"/>
                     <TextView
-                        android:id="@+id/txt_detalle_mascota_correo"
+                        android:id="@+id/txt_verqr_mascota_correo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/input_det_correo"
@@ -127,14 +128,6 @@
                         android:textSize="18sp"
                         tools:text="Terrier"/>
                 </RelativeLayout>
-                <ImageView
-                    android:id="@+id/qrCodeImageView"
-                    android:layout_width="300dp"
-                    android:layout_height="300dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="25dp"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginBottom="16dp"/>
             </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>

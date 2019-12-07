@@ -17,13 +17,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_mascota_nombre_reg"
         android:layout_margin="16dp"
-        android:hint="Ingrese la Raza de tu amscota"/>
+        android:hint="Ingrese la Raza de tu mascota"/>
     <EditText
         android:id="@+id/edit_mascota_edad_reg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_mascota_raza_reg"
         android:layout_margin="16dp"
+        android:inputType="number"
         android:hint="Ingrese la edad de tu mascota"/>
     <RelativeLayout
         android:id="@+id/relative_foto"

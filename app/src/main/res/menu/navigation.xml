@@ -4,9 +4,17 @@
         android:id="@+id/group_nav_system"
         android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_todos"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="Todas las mascotas" />
+        <item
             android:id="@+id/nav_datos"
             android:icon="@android:drawable/ic_menu_myplaces"
             android:title="Mis mascotas" />
+        <item
+            android:id="@+id/nav_qr"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="Escanear con QR" />
     </group>
     <group
         android:id="@+id/group_nav_system2"
