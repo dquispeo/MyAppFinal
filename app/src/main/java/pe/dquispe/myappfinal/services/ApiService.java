@@ -49,4 +49,10 @@ public interface ApiService {
     @GET("/api/usuarios/{id}")
     Call<Usuario> showUsuario(@Path("id") Long id);
 
+    @FormUrlEncoded
+    @POST("/api/usuarios")
+    Call<Usuario> createUsuario(@Field("nombre") String nombre,
+                                  @Field("correo") String correo,
+                                  @Field("password") String password);
+
 }

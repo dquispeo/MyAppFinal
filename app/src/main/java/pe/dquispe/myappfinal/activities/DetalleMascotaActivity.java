@@ -1,5 +1,7 @@
 package pe.dquispe.myappfinal.activities;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,8 +27,8 @@ public class DetalleMascotaActivity extends AppCompatActivity {
     private ImageView fotoImage;
     private TextView nombreText;
     private TextView razaText;
-    private TextView edadText;
-
+    private TextView edadText,dueñoText,correoText;
+    String dueño,correo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,9 @@ public class DetalleMascotaActivity extends AppCompatActivity {
         nombreText = findViewById(R.id.txt_detalle_mascota_nombre);
         razaText = findViewById(R.id.txt_detalle_mascota_raza);
         edadText = findViewById(R.id.txt_detalle_mascota_edad);
+        dueñoText = findViewById(R.id.txt_detalle_mascota_dueño);
+        correoText = findViewById(R.id.txt_detalle_mascota_correo);
+
 
         id = getIntent().getExtras().getLong("ID");
         Log.e(TAG, "id:" + id);
@@ -61,9 +66,15 @@ public class DetalleMascotaActivity extends AppCompatActivity {
                         Mascota mascota = response.body();
                         Log.d(TAG, "mascotas : " + mascota);
 
+                        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(DetalleMascotaActivity.this);
+                        dueño = sp.getString("usuusu", "");
+                        correo= sp.getString("correo", "");
+
                         nombreText.setText(mascota.getNombre());
                         razaText.setText(mascota.getRaza());
                         edadText.setText(String.valueOf(mascota.getEdad()));
+                        dueñoText.setText(dueño);
+                        correoText.setText(correo);
 
                         String url = ApiService.API_BASE_URL + "/api/mascotas/images/" + mascota.getImagen();
                         Picasso.with(DetalleMascotaActivity.this).load(url).into(fotoImage);

@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     private EditText correoInput,passwordInput;
-    private Button btnIngresarUsu;
+    private Button btnIngresarUsu,btnRegistrarUsu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         correoInput = findViewById(R.id.edit_email);
         passwordInput = findViewById(R.id.edit_password);
         btnIngresarUsu=findViewById(R.id.btn_ingresar);
+        btnRegistrarUsu=findViewById(R.id.btn_registrar);
 
         btnIngresarUsu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +44,14 @@ public class LoginActivity extends AppCompatActivity {
                 login();
                 //Intent intent=new Intent(LoginActivity.this, HomeActivity.class);
                 //startActivity(intent);
-                Toast.makeText(LoginActivity.this, "Lista de mascotas", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnRegistrarUsu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(LoginActivity.this, RegistroActivity.class);
+                startActivity(intent);
             }
         });
 

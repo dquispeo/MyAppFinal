@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_email"
         android:layout_margin="16dp"
+        android:inputType="textPassword"
         android:hint="Ingrese Contraseña"/>
     <Button
         android:id="@+id/btn_ingresar"
